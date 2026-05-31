@@ -2,6 +2,7 @@ const express = require("express");
 const { existsSync } = require("fs");
 const fs = require("fs/promises");
 const path = require("path");
+const rateLimit = require("express-rate-limit");
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -10,6 +11,16 @@ const dataPath = path.join(__dirname, "data", "acharyas.json");
 const detailDir = path.join(__dirname, "acharya-data");
 const imageDir = path.join(__dirname, "acharya-image");
 const clientDist = path.join(__dirname, "..", "client", "dist");
+
+const apiLimiter = rateLimit({
+  windowMs: 60 * 1000,
+  max: 120,
+  standardHeaders: true,
+  legacyHeaders: false,
+});
+
+app.use("/api", apiLimiter);
+app.use("/images", apiLimiter);
 
 app.get("/api/acharyas", async (_req, res) => {
   try {
