@@ -168,28 +168,36 @@ async function renderHome(lang) {
   const list = document.getElementById("acharya-list");
   if (!list) return;
 
-  const response = await fetch("data/acharyas.json");
-  const acharyas = await response.json();
+  try {
+    const response = await fetch("data/acharyas.json");
+    if (!response.ok) throw new Error("not found");
+    const acharyas = await response.json();
 
-  list.innerHTML = "";
-  acharyas.forEach((acharya) => {
+    list.innerHTML = "";
+    acharyas.forEach((acharya) => {
+      const li = document.createElement("li");
+      const nameLink = document.createElement("a");
+      const birthText = document.createElement("p");
+
+      nameLink.href = `acharya.html?id=${encodeURIComponent(acharya.id)}`;
+      nameLink.textContent = textFor(acharya.name, lang);
+
+      birthText.className = "birth-day";
+      birthText.textContent = `${textFor(UI_TEXT.birthDay, lang)}: ${textFor(
+        acharya.birthDay,
+        lang
+      )}`;
+
+      li.appendChild(nameLink);
+      li.appendChild(birthText);
+      list.appendChild(li);
+    });
+  } catch {
+    list.innerHTML = "";
     const li = document.createElement("li");
-    const nameLink = document.createElement("a");
-    const birthText = document.createElement("p");
-
-    nameLink.href = `acharya.html?id=${encodeURIComponent(acharya.id)}`;
-    nameLink.textContent = textFor(acharya.name, lang);
-
-    birthText.className = "birth-day";
-    birthText.textContent = `${textFor(UI_TEXT.birthDay, lang)}: ${textFor(
-      acharya.birthDay,
-      lang
-    )}`;
-
-    li.appendChild(nameLink);
-    li.appendChild(birthText);
+    li.textContent = textFor(UI_TEXT.notFound, lang);
     list.appendChild(li);
-  });
+  }
 }
 
 function makeMetaRow(label, value) {
