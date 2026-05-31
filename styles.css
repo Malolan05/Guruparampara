@@ -76,6 +76,22 @@ p {
   padding: 1rem;
 }
 
+.acharya-media {
+  margin: 1rem 0 0.5rem;
+  display: flex;
+  justify-content: center;
+}
+
+.acharya-image {
+  width: min(100%, 420px);
+  max-height: 360px;
+  object-fit: contain;
+  border-radius: 12px;
+  border: 1px solid var(--accent);
+  background: #fffdf1;
+  padding: 0.5rem;
+}
+
 .card-list a {
   color: #574116;
   font-weight: 700;
