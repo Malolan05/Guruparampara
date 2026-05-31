@@ -1,0 +1,127 @@
+:root {
+  --bg: #fffbe6;
+  --surface: #fff6cc;
+  --accent: #e8d899;
+  --text: #3f3420;
+  --muted: #6b5c3b;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: "Noto Sans", "Nirmala UI", "Segoe UI", sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
+
+.site-header {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.5rem;
+  background: var(--surface);
+  border-bottom: 1px solid var(--accent);
+}
+
+h1,
+h2,
+h3,
+p {
+  margin: 0;
+}
+
+#site-title-link {
+  color: var(--text);
+  text-decoration: none;
+}
+
+.container {
+  max-width: 900px;
+  margin: 1.5rem auto;
+  padding: 0 1rem;
+}
+
+.language-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+#language-select {
+  padding: 0.35rem 0.5rem;
+  border-radius: 6px;
+  border: 1px solid var(--accent);
+  background: #fffdf1;
+  color: var(--text);
+}
+
+.card-list {
+  list-style: none;
+  padding: 0;
+  margin-top: 1rem;
+  display: grid;
+  gap: 0.75rem;
+}
+
+.card-list li,
+.detail-card {
+  background: #fffef6;
+  border: 1px solid var(--accent);
+  border-radius: 10px;
+  padding: 1rem;
+}
+
+.card-list a {
+  color: #574116;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.card-list a:hover {
+  text-decoration: underline;
+}
+
+.birth-day {
+  margin-top: 0.35rem;
+  color: var(--muted);
+}
+
+.meta-grid {
+  display: grid;
+  grid-template-columns: minmax(140px, 220px) 1fr;
+  gap: 0.5rem 1rem;
+  margin-top: 1rem;
+}
+
+.meta-label {
+  font-weight: 700;
+}
+
+.description-block {
+  margin-top: 1.25rem;
+  line-height: 1.6;
+}
+
+.error-text {
+  color: #953500;
+}
+
+.hidden {
+  display: none;
+}
+
+@media (max-width: 640px) {
+  .site-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .meta-grid {
+    grid-template-columns: 1fr;
+  }
+}
