@@ -19,8 +19,7 @@ const apiLimiter = rateLimit({
   legacyHeaders: false,
 });
 
-app.use("/api", apiLimiter);
-app.use("/images", apiLimiter);
+app.use(apiLimiter);
 
 app.get("/api/acharyas", async (_req, res) => {
   try {
