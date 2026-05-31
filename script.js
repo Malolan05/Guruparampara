@@ -127,6 +127,13 @@ function textFor(field, lang) {
   return field?.[lang] || field?.en || "";
 }
 
+function resolveImagePath(image) {
+  if (!image) return "";
+  if (image.startsWith("acharya-image/")) return image;
+  if (/^https?:\/\//.test(image)) return image;
+  return `acharya-image/${image}`;
+}
+
 function initLanguageSelector(onChange) {
   const select = document.getElementById("language-select");
   if (!select) return;
@@ -236,6 +243,22 @@ async function renderDetail(lang) {
     const nameTitle = document.createElement("h2");
     nameTitle.textContent = textFor(data.meta.name, lang);
 
+    const imageSrc = resolveImagePath(data.image || data.meta?.image || data.content?.image);
+    let imageBlock;
+    if (imageSrc) {
+      imageBlock = document.createElement("figure");
+      imageBlock.className = "acharya-media";
+
+      const image = document.createElement("img");
+      image.className = "acharya-image";
+      image.src = imageSrc;
+      image.alt = textFor(data.meta.name, lang);
+      image.loading = "lazy";
+      image.addEventListener("error", () => imageBlock.remove());
+
+      imageBlock.appendChild(image);
+    }
+
     const metaGrid = document.createElement("div");
     metaGrid.className = "meta-grid";
 
@@ -270,6 +293,7 @@ async function renderDetail(lang) {
     description.appendChild(descriptionText);
 
     detail.appendChild(nameTitle);
+    if (imageBlock) detail.appendChild(imageBlock);
     detail.appendChild(metaGrid);
     detail.appendChild(description);
   } catch {
