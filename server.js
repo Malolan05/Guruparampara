@@ -38,7 +38,7 @@ app.get('/api/acharyas/:id', async (req, res) => {
 
 app.use(express.static(clientDistDir));
 
-app.get('*', async (_req, res) => {
+app.get('/{*path}', async (_req, res) => {
   try {
     await fs.access(path.join(clientDistDir, 'index.html'));
     res.sendFile(path.join(clientDistDir, 'index.html'));
