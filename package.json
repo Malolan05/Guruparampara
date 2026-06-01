@@ -1,0 +1,34 @@
+{
+  "name": "guruparampara",
+  "version": "1.0.0",
+  "description": "About srivaishnava acharyas.",
+  "main": "server.js",
+  "scripts": {
+    "dev": "concurrently \"npm run dev:server\" \"npm run dev:client\"",
+    "dev:server": "nodemon server.js",
+    "dev:client": "npm --prefix client run dev",
+    "build": "npm --prefix client run build",
+    "start": "node server.js",
+    "lint": "npm --prefix client run lint",
+    "test": "npm --prefix client run test --if-present"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Malolan05/Guruparampara.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Malolan05/Guruparampara/issues"
+  },
+  "homepage": "https://github.com/Malolan05/Guruparampara#readme",
+  "dependencies": {
+    "express": "^5.2.1"
+  },
+  "devDependencies": {
+    "concurrently": "^10.0.1",
+    "nodemon": "^3.1.14"
+  }
+}
