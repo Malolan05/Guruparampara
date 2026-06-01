@@ -1,4 +1,5 @@
 const express = require('express');
+const { rateLimit } = require('express-rate-limit');
 const fs = require('fs/promises');
 const path = require('path');
 
@@ -6,6 +7,12 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 const rootDir = __dirname;
 const clientDistDir = path.join(rootDir, 'client', 'dist');
+const fallbackRateLimit = rateLimit({
+  windowMs: 60 * 1000,
+  max: 120,
+  standardHeaders: true,
+  legacyHeaders: false,
+});
 
 app.use('/acharya-image', express.static(path.join(rootDir, 'acharya-image')));
 
@@ -38,7 +45,7 @@ app.get('/api/acharyas/:id', async (req, res) => {
 
 app.use(express.static(clientDistDir));
 
-app.get('/*path', (_req, res) => {
+app.get('/*path', fallbackRateLimit, (_req, res) => {
   res.sendFile(path.join(clientDistDir, 'index.html'), (error) => {
     if (error && !res.headersSent) {
       res.status(404).send('Client build not found. Run "npm run build" first.');
