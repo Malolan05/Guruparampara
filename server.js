@@ -9,7 +9,7 @@ const rootDir = __dirname;
 const clientDistDir = path.join(rootDir, 'client', 'dist');
 const fallbackRateLimit = rateLimit({
   windowMs: 60 * 1000,
-  max: 120,
+  max: 60,
   standardHeaders: true,
   legacyHeaders: false,
 });
