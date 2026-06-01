@@ -38,7 +38,7 @@ app.get('/api/acharyas/:id', async (req, res) => {
 
 app.use(express.static(clientDistDir));
 
-app.get('/{*path}', async (_req, res) => {
+app.get('/{*path}', (_req, res) => {
   res.sendFile(path.join(clientDistDir, 'index.html'), (error) => {
     if (error) {
       res.status(404).send('Client build not found. Run "npm run build" first.');
